@@ -11,7 +11,7 @@ bot = Bot(ACCESS_TOKEN)
 
 def send_quick(recipient_id, message_text):
     params = {
-           "access_token": ACCESS_TOKEN
+           "access_token": os.environ["ACCESS_TOKEN"]
     }
 
     headers = {
@@ -19,23 +19,21 @@ def send_quick(recipient_id, message_text):
     }
 
     data = json.dumps({
-               "recipient": {
-                      "id": recipient_id
-               },
+               "recipient": {"id": recipient_id},
                "message": {
-                  "text": message_text
-                  "quick_replies":[{
+                    "text": message_text
+                    "quick_replies":[{
                             "content_type":"text",
                             "title":"Search",
                             "payload":"Search",
                             },
                             {
-                             "content_type":"text",
-                             "title":"Something Else",
-                             "payload":"Something Else"
-                             }
-                   ]
-               }
+                            "content_type":"text",
+                            "title":"Something Else",
+                            "payload":"Something Else"
+                            }
+                    ]
+                }
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
 
