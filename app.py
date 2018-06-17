@@ -31,12 +31,12 @@ def hello():
                     recipient_id = m['sender']['id']
                     if m['message'].get('text'):
                         message = m['message']['text']
-                        bot.send_text_message(recipient_id, message)
+                        bot.send_button_message(recipient_id, message, ['aaa', 'bbbb'])
+                        # bot.send_text_message(recipient_id, message)
                     #if user sends us a GIF, photo,video, or any other non-text item
                     else:
                         bot.send_text_message(recipient_id, 'BANG')
-                    # if m['message'].get('attachments'):
-                    #     bot.send_button_message(recipient_id, message, ['aaa', 'bbbb'])
+                    
                 else:
                     pass
         return 'Success'
