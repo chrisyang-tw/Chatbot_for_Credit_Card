@@ -75,7 +75,7 @@ def hello():
                                 }
                             ])
                         elif message == '母湯':
-                            send_quick(recipient_id, message)
+                            # send_quick(recipient_id, message)
                             # bot.send_text_message(recipient_id, '幹')
                         # bot.send_text_message(recipient_id, message)
                     #if user sends us a GIF, photo,video, or any other non-text item
