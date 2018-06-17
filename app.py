@@ -31,13 +31,39 @@ def hello():
                     recipient_id = m['sender']['id']
                     if m['message'].get('text'):
                         message = m['message']['text']
-                        bot.send_button_message(recipient_id, message, [
-                            {
+                        if message == 'Mail':
+                            bot.send_button_message(recipient_id, message, [
+                                {
                                 'type':'web_url',
                                 'url':'https://mail.ntu.edu.tw',
                                 'title':'NTU Mail'
-                            }
-                        ])
+                                }
+                            ])
+                        elif message == '母湯':
+                            bot.send_generic_message(recipient_id, [
+                                {
+                                "title":"Welcome!",
+                                "image_url":"https://petersfancybrownhats.com/company_image.png",
+                                "subtitle":"We have the right hat for everyone.",
+                                "default_action": {
+                                    "type": "web_url",
+                                    "url": "https://petersfancybrownhats.com/view?item=103",
+                                    "messenger_extensions": false,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://petersfancybrownhats.com/"
+                                    },
+                                "buttons":[
+                                    {
+                                    "type":"web_url",
+                                    "url":"https://petersfancybrownhats.com",
+                                    "title":"View Website"
+                                    },{
+                                    "type":"postback",
+                                    "title":"Start Chatting",
+                                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                                    }
+                                    ]
+                                }])
                         # bot.send_text_message(recipient_id, message)
                     #if user sends us a GIF, photo,video, or any other non-text item
                     else:
