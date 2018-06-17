@@ -3,7 +3,7 @@ import os
 import random
 from flask import Flask, request
 from pymessenger.bot import Bot
-from fbmq import Attachment, Template, QuickReply, Page
+# from fbmq import Attachment, Template, QuickReply, Page
 
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
