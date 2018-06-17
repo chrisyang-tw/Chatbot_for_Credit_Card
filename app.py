@@ -58,29 +58,29 @@ bot = Bot(ACCESS_TOKEN)
 #     bot.send_text_message(recipient_id, response)
 #     return "success"
 
-def hello():
-    if request.method == 'GET':
-        if request.args.get("hub.verify_token") == VERIFY_TOKEN:
-            return request.args.get("hub.challenge")
-        else:
-            return 'Invalid verification token'
+    def hello():
+        if request.method == 'GET':
+            if request.args.get("hub.verify_token") == VERIFY_TOKEN:
+                return request.args.get("hub.challenge")
+            else:
+                return 'Invalid verification token'
 
-    if request.method == 'POST':
-        output = request.get_json()
-        for event in output['entry']:
-            messaging = event['messaging']
-            for x in messaging:
-                if x.get('message'):
-                    recipient_id = x['sender']['id']
-                    if x['message'].get('text'):
-                        message = x['message']['text']
-                        bot.send_text_message(recipient_id, message)
-                    if x['message'].get('attachments'):
-                        for att in x['message'].get('attachments'):
-                            bot.send_attachment_url(recipient_id, att['type'], att['payload']['url'])
-                else:
-                    pass
-        return "Success"
+        if request.method == 'POST':
+            output = request.get_json()
+            for event in output['entry']:
+                messaging = event['messaging']
+                for x in messaging:
+                    if x.get('message'):
+                        recipient_id = x['sender']['id']
+                        if x['message'].get('text'):
+                            message = x['message']['text']
+                            bot.send_text_message(recipient_id, message)
+                        if x['message'].get('attachments'):
+                            for att in x['message'].get('attachments'):
+                                bot.send_attachment_url(recipient_id, att['type'], att['payload']['url'])
+                    else:
+                        pass
+            return "Success"
 
 
 if __name__ == "__main__":
