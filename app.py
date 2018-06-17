@@ -36,7 +36,9 @@ def receive_message():
                     if message['message'].get('attachments'):
                         for att in x['message'].get('attachments'):
                             bot.send_attachment_url(recipient_id, att['type'], att['payload']['url'])
-    return "Message Processed"
+                else:
+                    pass
+        return "Message Processed"
 
 # def verify_fb_token(token_sent):
 #     #take token sent by facebook and verify it matches the verify token you sent
