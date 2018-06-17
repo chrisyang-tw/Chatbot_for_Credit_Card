@@ -34,8 +34,7 @@ def hello():
                         bot.send_text_message(recipient_id, message)
                     #if user sends us a GIF, photo,video, or any other non-text item
                     if m['message'].get('attachments'):
-                        for att in x['message'].get('attachments'):
-                            bot.send_attachment_url(recipient_id, att['type'], att['payload']['url'])
+                        bot.send_button_message(recipient_id, message, ['aaa', 'bbbb'])
                 else:
                     pass
         return 'Success'
