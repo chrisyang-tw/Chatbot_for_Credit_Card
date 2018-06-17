@@ -9,36 +9,6 @@ ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 bot = Bot(ACCESS_TOKEN)
 
-def send_quick(recipient_id, message_text):
-    params = {
-           "access_token": ACCESS_TOKEN
-    }
-
-    headers = {
-            "Content-Type": "application/json"
-    }
-
-    data = json.dumps({
-               "recipient": {
-                      "id": recipient_id
-               },
-               "message": {
-                  "text": message_text
-                  "quick_replies":[{
-                            "content_type":"text",
-                            "title":"Search",
-                            "payload":"Search",
-                            },
-                            {
-                             "content_type":"text",
-                             "title":"Something Else",
-                             "payload":"Something Else"
-                             }
-                   ]
-               }
-    })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
-
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/", methods=['GET', 'POST'])
 def hello():
@@ -75,7 +45,6 @@ def hello():
                                 }
                             ])
                         elif message == '母湯':
-                            # send_quick(recipient_id, message)
                             bot.send_text_message(recipient_id, '幹')
                         # bot.send_text_message(recipient_id, message)
                     #if user sends us a GIF, photo,video, or any other non-text item
