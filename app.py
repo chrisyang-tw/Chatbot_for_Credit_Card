@@ -48,13 +48,12 @@ def hello():
                         elif message == '母湯':
                             bot.send_text_message(recipient_id, '幹')
                         elif message == '好':
-                            quick_replies = [
-                                QuickReply(title="Action", payload="PICK_ACTION"),
-                                QuickReply(title="Comedy", payload="PICK_COMEDY")
-                            ]
-                            Page.send(recipient_id, message, quick_replies=quick_replies)
-
-                        # bot.send_text_message(recipient_id, message)
+                            # quick_replies = [
+                            #     QuickReply(title="Action", payload="PICK_ACTION"),
+                            #     QuickReply(title="Comedy", payload="PICK_COMEDY")
+                            # ]
+                            # Page.send(recipient_id, message, quick_replies=quick_replies)
+                            bot.send_text_message(recipient_id, message)
                     #if user sends us a GIF, photo,video, or any other non-text item
                     else:
                         bot.send_text_message(recipient_id, 'BANG')
