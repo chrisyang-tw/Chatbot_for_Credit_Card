@@ -3,6 +3,8 @@ import os
 import random
 from flask import Flask, request
 from pymessenger.bot import Bot
+from fbmessenger import BaseMessenger
+from fbmessenger import quick_replies
 
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -45,7 +47,12 @@ def hello():
                                 }
                             ])
                         elif message == '母湯':
-                            bot.send_text_message(recipient_id, '幹')
+                            qr1 = quick_replies.QuickReply(title='Location', content_type='location')
+                            qr2 = quick_replies.QuickReply(title='Payload', payload='QUICK_REPLY_PAYLOAD')
+                            qrs = quick_replies.QuickReplies(quick_replies=[qr1, qr2])
+                            text = { text:'YEE' }
+                            text['qrs'] = qrs.to_dict()
+                            messenger.send(text, 'RESPONSE')
                         # bot.send_text_message(recipient_id, message)
                     #if user sends us a GIF, photo,video, or any other non-text item
                     else:
