@@ -10,6 +10,7 @@ CONFIG = {
 }
 
 ####################################
+app = Flask(__name__)
 page = Page(CONFIG['FACEBOOK_TOKEN'])
 
 @app.route('/webhook', methods=['POST'])
