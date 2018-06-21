@@ -9,8 +9,7 @@ from fbmq import Attachment, Template, QuickReply, NotificationType, Page
 
 CONFIG = {
     'FACEBOOK_TOKEN': os.environ['ACCESS_TOKEN'],
-    'VERIFY_TOKEN': os.environ['VERIFY_TOKEN'],
-    'SERVER_URL': ''
+    'VERIFY_TOKEN': os.environ['VERIFY_TOKEN']
 }
 
 page = Page(CONFIG['FACEBOOK_TOKEN'])
@@ -242,19 +241,15 @@ def send_text_message(recipient, text):
 app = Flask(__name__)
 
 
-@app.route('/webhook', methods=['GET'])
+@app.route('/', methods=['GET'])
 def validate():
-    if request.args.get('hub.mode', '') == 'subscribe' and \
-                    request.args.get('hub.verify_token', '') == CONFIG['VERIFY_TOKEN']:
-
-        print("Validating webhook")
-
-        return request.args.get('hub.challenge', '')
-    else:
-        return 'Failed validation. Make sure the validation tokens match.'
+    if request.args.get("hub.verify_token") == CONFIG['VERIFY_TOKEN']:
+            return request.args.get("hub.challenge")
+        else:
+            return 'Invalid verification token'
 
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/', methods=['POST'])
 def webhook():
     payload = request.get_data(as_text=True)
     print(payload)
