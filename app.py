@@ -6,7 +6,6 @@ os.sys.path.insert(0,parentdir)
 import json
 from flask import Flask, request, send_from_directory, render_template
 from fbmq import Attachment, Template, QuickReply, NotificationType, Page
-from fbpage import page
 
 CONFIG = {
     'FACEBOOK_TOKEN': os.environ['ACCESS_TOKEN'],
@@ -20,7 +19,7 @@ page = Page(CONFIG['FACEBOOK_TOKEN'])
 def after_send(payload, response):
     print('AFTER_SEND : ' + payload.to_json())
     print('RESPONSE : ' + response.text)
-    
+
 ##############################################################
 USER_SEQ = {}
 
