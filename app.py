@@ -2,7 +2,7 @@
 import os
 import json
 from flask import Flask, request
-from fbmq import Attachment, Template, QuickReply, Page
+from fbmq import Attachment, Page
 
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -33,13 +33,13 @@ def message_handler(event):
     if message == 'A':
         page.send(sender_id, "thank you! your message is '%s'" % message)
     elif message == 'B':
-        page.send(sender_id, Attachment.Image(http://i.imgur.com/hKORBJK.jpg))
-    elif message == 'C':
-        quick_replies = [
-            QuickReply(title="Action", payload="PICK_ACTION"),
-            QuickReply(title="Comedy", payload="PICK_COMEDY")
-        ]
-        page.send(sender_id, "What's your favorite movie genre?", quick_replies=quick_replies, metadata="DEVELOPER_DEFINED_METADATA")
+        page.send(sender_id, Attachment.Image('http://i.imgur.com/hKORBJK.jpg'))
+    # elif message == 'C':
+    #     quick_replies = [
+    #         QuickReply(title="Action", payload="PICK_ACTION"),
+    #         QuickReply(title="Comedy", payload="PICK_COMEDY")
+    #     ]
+    #     page.send(sender_id, "What's your favorite movie genre?", quick_replies=quick_replies, metadata="DEVELOPER_DEFINED_METADATA")
 
 @page.after_send
 def after_send(payload, response):
