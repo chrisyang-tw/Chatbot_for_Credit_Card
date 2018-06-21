@@ -4,12 +4,25 @@ parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.sys.path.insert(0,parentdir)
 
 import json
-from config import CONFIG
-from fbmq import Attachment, Template, QuickReply, NotificationType
+from flask import Flask, request, send_from_directory, render_template
+from fbmq import Attachment, Template, QuickReply, NotificationType, Page
 from fbpage import page
 
-USER_SEQ = {}
+CONFIG = {
+    'FACEBOOK_TOKEN': os.environ['ACCESS_TOKEN'],
+    'VERIFY_TOKEN': os.environ['VERIFY_TOKEN'],
+    'SERVER_URL': ''
+}
 
+page = Page(CONFIG['FACEBOOK_TOKEN'])
+
+@page.after_send
+def after_send(payload, response):
+    print('AFTER_SEND : ' + payload.to_json())
+    print('RESPONSE : ' + response.text)
+    
+##############################################################
+USER_SEQ = {}
 
 @page.handle_optin
 def received_authentication(event):
@@ -147,27 +160,6 @@ def send_message(recipient_id, text):
 def send_text_callback(payload, response):
     print("SEND CALLBACK")
 
-
-# def send_image(recipient):
-#     page.send(recipient, Attachment.Image(CONFIG['SERVER_URL'] + "/assets/rift.png"))
-
-
-# def send_gif(recipient):
-#     page.send(recipient, Attachment.Image(CONFIG['SERVER_URL'] + "/assets/instagram_logo.gif"))
-
-
-# def send_audio(recipient):
-#     page.send(recipient, Attachment.Audio(CONFIG['SERVER_URL'] + "/assets/sample.mp3"))
-
-
-# def send_video(recipient):
-#     page.send(recipient, Attachment.Video(CONFIG['SERVER_URL'] + "/assets/allofus480.mov"))
-
-
-# def send_file(recipient):
-#     page.send(recipient, Attachment.File(CONFIG['SERVER_URL'] + "/assets/test.txt"))
-
-
 def send_button(recipient):
     """
     Shortcuts are supported
@@ -187,42 +179,6 @@ def send_button(recipient):
 @page.callback(['DEVELOPED_DEFINED_PAYLOAD'])
 def callback_clicked_button(payload, event):
     print(payload, event)
-
-
-# def send_generic(recipient):
-#     page.send(recipient, Template.Generic([
-#         Template.GenericElement("rift",
-#                                 subtitle="Next-generation virtual reality",
-#                                 item_url="https://www.oculus.com/en-us/rift/",
-#                                 image_url=CONFIG['SERVER_URL'] + "/assets/rift.png",
-#                                 buttons=[
-#                                     Template.ButtonWeb("Open Web URL", "https://www.oculus.com/en-us/rift/"),
-#                                     Template.ButtonPostBack("tigger Postback", "DEVELOPED_DEFINED_PAYLOAD"),
-#                                     Template.ButtonPhoneNumber("Call Phone Number", "+16505551234")
-#                                 ]),
-#         Template.GenericElement("touch",
-#                                 subtitle="Your Hands, Now in VR",
-#                                 item_url="https://www.oculus.com/en-us/touch/",
-#                                 image_url=CONFIG['SERVER_URL'] + "/assets/touch.png",
-#                                 buttons=[
-#                                     {'type': 'web_url', 'title': 'Open Web URL',
-#                                      'value': 'https://www.oculus.com/en-us/rift/'},
-#                                     {'type': 'postback', 'title': 'tigger Postback',
-#                                      'value': 'DEVELOPED_DEFINED_PAYLOAD'},
-#                                     {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+16505551234'},
-#                                 ])
-#     ]))
-
-
-# def send_receipt(recipient):
-#     receipt_id = "order1357"
-#     element = Template.ReceiptElement(title="Oculus Rift",
-#                                       subtitle="Includes: headset, sensor, remote",
-#                                       quantity=1,
-#                                       price=599.00,
-#                                       currency="USD",
-#                                       image_url=CONFIG['SERVER_URL'] + "/assets/riftsq.png"
-#                                       )
 
     address = Template.ReceiptAddress(street_1="1 Hacker Way",
                                       street_2="",
@@ -279,12 +235,33 @@ def send_typing_on(recipient):
 def send_typing_off(recipient):
     page.typing_off(recipient)
 
-
-# def send_account_linking(recipient):
-#     page.send(recipient, Template.AccountLink(text="Welcome. Link your account.",
-#                                               account_link_url=CONFIG['SERVER_URL'] + "/authorize",
-#                                               account_unlink_button=True))
-
-
 def send_text_message(recipient, text):
     page.send(recipient, text, metadata="DEVELOPER_DEFINED_METADATA")
+
+
+##############################################################
+app = Flask(__name__)
+
+
+@app.route('/webhook', methods=['GET'])
+def validate():
+    if request.args.get('hub.mode', '') == 'subscribe' and \
+                    request.args.get('hub.verify_token', '') == CONFIG['VERIFY_TOKEN']:
+
+        print("Validating webhook")
+
+        return request.args.get('hub.challenge', '')
+    else:
+        return 'Failed validation. Make sure the validation tokens match.'
+
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    payload = request.get_data(as_text=True)
+    print(payload)
+    page.handle_webhook(payload)
+
+    return "ok"
+
+if __name__ == '__main__':
+    app.run()
