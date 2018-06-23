@@ -45,6 +45,8 @@ def received_postback(event):
         page.send(sender_id, '晚安我的朋友')
     elif payload == 'DEVELOPED_DEFINED_PAYLOAD':
         page.send(sender_id, '噫！好了！我中了！')
+    else:
+        page.send(sender_id, '母湯喔')
 
 ####################################
 ##### 開始菜單(未完成)
@@ -53,8 +55,10 @@ page.show_starting_button("START_PAYLOAD")
 def start_callback(payload, event):
     print("Let's start!")
 
-page.show_persistent_menu([{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-                        {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'}])
+page.show_persistent_menu([Template.ButtonWeb("Open Web URL", "https://www.oculus.com/en-us/rift/"),
+                           Template.ButtonPostBack('MENU2', 'MENU_PAYLOAD/1')],
+                           Template.ButtonPostBack('MENU2', 'MENU_PAYLOAD/2')])
+
 # @page.callback(['MENU_PAYLOAD/(.+)'])
 # def click_persistent_menu(payload, event):
 #     click_menu = payload.split('/')[1]
@@ -71,8 +75,8 @@ def message_handler(event):
     ##### 按鈕
     if message == 'A':     
         buttons = [{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-                {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
-                {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]
+                   {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
+                   {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]
         page.send(sender_id, Template.Buttons("hello", buttons))
 
     ##### 圖片
@@ -82,7 +86,7 @@ def message_handler(event):
     ##### 快速回覆
     elif message == 'C':
         quick_replies = [{'title': 'Action', 'payload': 'PICK_ACTION'},
-                        {'title': 'Comedy', 'payload': 'PICK_COMEDY'}]
+                         {'title': 'Comedy', 'payload': 'PICK_COMEDY'}]
         page.send(sender_id, "What's your favorite movie genre?", quick_replies=quick_replies, metadata="DEVELOPER_DEFINED_METADATA")
 
     ##### Generic Template
