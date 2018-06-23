@@ -33,7 +33,7 @@ def message_handler(event):
         buttons = [{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
                 {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
                 {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]
-        page.send(recipient_id, Template.Buttons("hello", buttons))
+        page.send(sender_id, Template.Buttons("hello", buttons))
     elif message == 'B':
         page.send(sender_id, Attachment.Image('http://i.imgur.com/hKORBJK.jpg'))
     elif message == 'C':
