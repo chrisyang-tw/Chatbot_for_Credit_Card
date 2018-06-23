@@ -53,8 +53,8 @@ page.show_starting_button("START_PAYLOAD")
 def start_callback(payload, event):
     print("Let's start!")
 
-page.show_persistent_menu([Template.ButtonPostBack('MENU1', 'MENU_PAYLOAD/1'),
-                           Template.ButtonPostBack('MENU2', 'MENU_PAYLOAD/2')])
+page.show_persistent_menu([{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
+                        {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'}])
 # @page.callback(['MENU_PAYLOAD/(.+)'])
 # def click_persistent_menu(payload, event):
 #     click_menu = payload.split('/')[1]
