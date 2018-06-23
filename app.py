@@ -44,15 +44,15 @@ def message_handler(event):
         page.send(sender_id, "What's your favorite movie genre?", quick_replies=quick_replies, metadata="DEVELOPER_DEFINED_METADATA")
     elif message == 'D':
         page.send(sender_id, Template.Generic([
-        Template.GenericElement("rift",
+                Template.GenericElement("rift",
                                 subtitle="Next-generation virtual reality",
                                 item_url="https://www.oculus.com/en-us/rift/",
                                 # image_url=CONFIG['SERVER_URL'] + "/assets/rift.png",
-                                image_url='http://i.imgur.com/hKORBJK.jpg'
+                                image_url='http://i.imgur.com/hKORBJK.jpg',
                                 buttons=[{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
                                         {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
                                         {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]),
-        Template.GenericElement("touch",
+                Template.GenericElement("touch",
                                 subtitle="Your Hands, Now in VR",
                                 item_url="https://www.oculus.com/en-us/touch/",
                                 image_url='http://i.imgur.com/hKORBJK.jpg',
