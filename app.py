@@ -146,8 +146,8 @@ def message_handler(event):
     ## 輸出
     elif message in sub_features_all:
         answer = cal1(message)
-        card1, card2, card3, card4, card5 = answer[0][0], answer[0][1], answer[0][2], answer[0][3], answer[0][4]
         if len(answer[0]) == 5:
+            card1, card2, card3, card4, card5 = answer[0][0], answer[0][1], answer[0][2], answer[0][3], answer[0][4]
             page.send(sender_id, Template.Generic([
                     Template.GenericElement(answer[0][0],
                                     subtitle=answer[0][0],
@@ -182,6 +182,7 @@ def message_handler(event):
             ]))
         ## eTag 是特例，只會有四個
         else:
+            card1, card2, card3, card4 = answer[0][0], answer[0][1], answer[0][2], answer[0][3]
             page.send(sender_id, Template.Generic([
                     Template.GenericElement(answer[0][0],
                                     subtitle=answer[0][0],
