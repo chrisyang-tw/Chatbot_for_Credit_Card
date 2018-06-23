@@ -24,9 +24,15 @@ def webhook():
 
 ####################################
 
+page.greeting("Welcome!")
+
+page.show_starting_button("START_PAYLOAD")
+@page.callback(['START_PAYLOAD'])
+def start_callback(payload, event):
+  print("Let's start!")
+
 page.show_persistent_menu([Template.ButtonPostBack('MENU1', 'MENU_PAYLOAD/1'),
                            Template.ButtonPostBack('MENU2', 'MENU_PAYLOAD/2')])
-
 @page.callback(['MENU_PAYLOAD/(.+)'])
 def click_persistent_menu(payload, event):
     click_menu = payload.split('/')[1]
