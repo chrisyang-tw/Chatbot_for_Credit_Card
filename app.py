@@ -32,8 +32,12 @@ def webhook():
 #     click_menu = payload.split('/')[1]
 #     print("you clicked %s menu" % click_menu)
 
-@page.callback(['DEVELOPED_DEFINED_PAYLOAD'])
-def callback_clicked_button(payload, event):
+# @page.callback(['DEVELOPED_DEFINED_PAYLOAD'])
+# def callback_clicked_button(payload, event):
+#     print(payload, event)
+
+@page.callback(['PICK_ACTION', 'PICK_COMEDY'])
+def callback_picked_genre(payload, event):
     print(payload, event)
 
 @page.handle_message
@@ -41,19 +45,25 @@ def message_handler(event):
     """:type event: fbmq.Event"""
     sender_id = event.sender_id
     message = event.message_text
+
+    ##### 按鈕
     if message == 'A':     
         buttons = [{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
                 {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
                 {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]
         page.send(sender_id, Template.Buttons("hello", buttons))
+
+    ##### 圖片
     elif message == 'B':
         page.send(sender_id, Attachment.Image('http://i.imgur.com/hKORBJK.jpg'))
+
+    ##### 快速回覆
     elif message == 'C':
-        quick_replies = [
-            QuickReply(title="Action", payload="PICK_ACTION"),
-            QuickReply(title="Comedy", payload="PICK_COMEDY")
-        ]
+        quick_replies = [{'title': 'Action', 'payload': 'PICK_ACTION'},
+                        {'title': 'Comedy', 'payload': 'PICK_COMEDY'}]
         page.send(sender_id, "What's your favorite movie genre?", quick_replies=quick_replies, metadata="DEVELOPER_DEFINED_METADATA")
+
+    ##### Generic Template
     elif message == 'D':
         page.send(sender_id, Template.Generic([
                 Template.GenericElement("rift",
@@ -74,10 +84,12 @@ def message_handler(event):
                                         {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
         ]))
 
-    elif message == 'AA':
-        page.send(sender_id, 'yeeeeeeeeeeee')
-    elif message == 'BB':
-        page.send(sender_id, 'WTF')
+    # elif message == 'AA':
+    #     page.send(sender_id, 'yeeeeeeeeeeee')
+    # elif message == 'BB':
+    #     page.send(sender_id, 'WTF')
+    
+    ##### 鸚鵡
     else:
         page.send(sender_id, "你傳的訊息是 '%s'" % message)
 
