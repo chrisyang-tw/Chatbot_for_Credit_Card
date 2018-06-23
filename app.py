@@ -3,7 +3,45 @@ import os
 import json
 from flask import Flask, request
 from fbmq import Attachment, Template, QuickReply, Page
+import csv
+import random
 
+# def cal1():
+#     # 開啟 CSV 檔案
+#     data = "/Users/chiaa/Desktop/money101.csv"
+#     csvfile = open(data, mode='r', encoding='utf-8')
+#     next(csvfile)
+#     rows = csv.reader(csvfile)
+#     answer = []
+#     for row in rows:
+#         #print (row[5])
+#         if '里程累積' in row[5]:
+#             answer +=[row]
+#     number = []
+#     answer1 = []
+#     for i in range(0,len(answer)):
+#         number.append(i)
+#     random.shuffle(number)
+#     #print(number)
+#     for  i in range(0,len(answer)):
+#         answer1.append(answer[number[i]])
+#     #print(answer1)
+#     answer1 = sorted(answer1, key=lambda y: answer[14], reverse=True)
+#     answerstr =''
+#     if len(answer1) >= 5:
+#         for i in range(0,5):
+#             answerstr += answer1[i][1]+answer1[i][2]+'\n'
+#             #showinfo(answer1[i][1]+answer1[i][2],"信用卡名:"+answer1[i][1]+answer1[i][2]+"\n"+"\n"+"國內現金回饋："+answer1[i][3]+"\n"+"\n"+"國外現金回饋："+answer1[i][4]+"\n"+"\n"+"優惠內容："+answer1[i][6]
+#             #+"\n"+"\n"+"優惠限制："+answer1[i][7]+"\n"+"\n"+"首刷禮："+answer1[i][8]+"\n"+"\n"+"首刷活動："+answer1[i][9]+"\n"+"\n"+"手續費："+answer1[i][10]+"\n"+"\n"+"年費："+answer1[i][11]+"\n"+"\n"
+#             #+"年收入限制："+answer1[i][12]+"\n"+"\n"+"年齡限制："+answer1[i][13]+"\n"+"\n")
+#     else:
+#         for i in range(0,len(answer1)):
+#             answerstr += answer1[i][1]+answer1[i][2]+'\n'
+#             #showinfo(answer1[i][1]+answer1[i][2],answer1[i][1]+answer1[i][2] ).geoemtry("1080*1080")
+
+#     return answerstr
+
+####################################
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
@@ -49,13 +87,15 @@ def received_postback(event):
         page.send(sender_id, '母湯喔')
     elif payload == 'MENU2':
         page.send(sender_id, '湯喔')
+    elif payload == 'START_PAYLOAD':
+        page.send(sender_id, '在想些什麼？')
 
 ####################################
 ##### 開始菜單(未完成)
 page.show_starting_button("START_PAYLOAD")
-@page.callback(['START_PAYLOAD'])
-def start_callback(payload, event):
-    print("Let's start!")
+# @page.callback(['START_PAYLOAD'])
+# def start_callback(payload, event):
+#     print("Let's start!")
 
 page.show_persistent_menu([Template.ButtonWeb("Open Web URL", "https://www.oculus.com/en-us/rift/"),
                            Template.ButtonPostBack('MENU1', 'MENU1'),
@@ -111,13 +151,7 @@ def message_handler(event):
                                         {'type': 'postback', 'title': 'BANK B', 'value': 'DEF'},
                                         {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
         ]))
-    
-
-    # elif message == 'AA':
-    #     page.send(sender_id, 'yeeeeeeeeeeee')
-    # elif message == 'BB':
-    #     page.send(sender_id, 'WTF')
-    
+        
     ##### 鸚鵡
     else:
         page.send(sender_id, "你傳的訊息是 '%s'" % message)
