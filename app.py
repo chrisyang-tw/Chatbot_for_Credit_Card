@@ -6,48 +6,15 @@ from fbmq import Attachment, Template, QuickReply, Page
 import csv
 import random
 
-# def cal1():
-#     # 開啟 CSV 檔案
-#     data = "/Users/chiaa/Desktop/money101.csv"
-#     csvfile = open(data, mode='r', encoding='utf-8')
-#     next(csvfile)
-#     rows = csv.reader(csvfile)
-#     answer = []
-#     for row in rows:
-#         #print (row[5])
-#         if '里程累積' in row[5]:
-#             answer +=[row]
-#     number = []
-#     answer1 = []
-#     for i in range(0,len(answer)):
-#         number.append(i)
-#     random.shuffle(number)
-#     #print(number)
-#     for  i in range(0,len(answer)):
-#         answer1.append(answer[number[i]])
-#     #print(answer1)
-#     answer1 = sorted(answer1, key=lambda y: answer[14], reverse=True)
-#     answerstr =''
-#     if len(answer1) >= 5:
-#         for i in range(0,5):
-#             answerstr += answer1[i][1]+answer1[i][2]+'\n'
-#             #showinfo(answer1[i][1]+answer1[i][2],"信用卡名:"+answer1[i][1]+answer1[i][2]+"\n"+"\n"+"國內現金回饋："+answer1[i][3]+"\n"+"\n"+"國外現金回饋："+answer1[i][4]+"\n"+"\n"+"優惠內容："+answer1[i][6]
-#             #+"\n"+"\n"+"優惠限制："+answer1[i][7]+"\n"+"\n"+"首刷禮："+answer1[i][8]+"\n"+"\n"+"首刷活動："+answer1[i][9]+"\n"+"\n"+"手續費："+answer1[i][10]+"\n"+"\n"+"年費："+answer1[i][11]+"\n"+"\n"
-#             #+"年收入限制："+answer1[i][12]+"\n"+"\n"+"年齡限制："+answer1[i][13]+"\n"+"\n")
-#     else:
-#         for i in range(0,len(answer1)):
-#             answerstr += answer1[i][1]+answer1[i][2]+'\n'
-#             #showinfo(answer1[i][1]+answer1[i][2],answer1[i][1]+answer1[i][2] ).geoemtry("1080*1080")
-
-#     return answerstr
+##### 爬資料
 
 ####################################
+##### 設置 webhook
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 page = Page(ACCESS_TOKEN)
 
-## We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/", methods=['GET'])
 def hello():
     if request.args.get("hub.verify_token") == VERIFY_TOKEN:
@@ -62,7 +29,7 @@ def webhook():
 
 ####################################
 
-page.greeting("Welcome!")
+
 
 ####################################
 ##### 接收按鈕傳回的訊息
@@ -74,7 +41,7 @@ def received_postback(event):
 
     payload = event.postback_payload
 
-    print("Received postback for user %s and page %s with payload '%s' at %s"
+    print('Received postback for user %s and page %s with payload '%s' at %s'
           % (sender_id, recipient_id, payload, time_of_postback))
 
     if payload == 'ABC':
@@ -88,23 +55,21 @@ def received_postback(event):
     elif payload == 'MENU2':
         page.send(sender_id, '湯喔')
     elif payload == 'START_PAYLOAD':
-        page.send(sender_id, '在想些什麼？')
+        page.send(sender_id, '各位潮潮的菁英們，實習都已經賺了那麼多錢，是不是覺得沒地方花呢？想不想成為一個卡奴呢？',
+                  quick_replies=[{'title': '想！', 'payload': 'Y'},
+                                 {'title': '不想！', 'payload': 'N'}])
 
 ####################################
 ##### 開始菜單(未完成)
+page.greeting("想變卡奴找我們準沒錯！")
+
 page.show_starting_button("START_PAYLOAD")
-# @page.callback(['START_PAYLOAD'])
-# def start_callback(payload, event):
-#     print("Let's start!")
 
 page.show_persistent_menu([Template.ButtonWeb("Open Web URL", "https://www.oculus.com/en-us/rift/"),
                            Template.ButtonPostBack('MENU1', 'MENU1'),
                            Template.ButtonPostBack('MENU2', 'MENU2')])
 
-# @page.callback(['MENU_PAYLOAD/(.+)'])
-# def click_persistent_menu(payload, event):
-#     click_menu = payload.split('/')[1]
-#     print("you clicked %s menu" % click_menu)
+
 
 ####################################
 ##### 
@@ -115,7 +80,16 @@ def message_handler(event):
     message = event.message_text
 
     ##### 按鈕
-    if message == 'A':     
+    if message == '想':
+        page.send(sender_id, '那讓我們開始吧！首先先問問你希望想擁有的信用卡特色？',
+                  quick_replies=[{'title': '高額現金回饋', 'payload': 'cash'},
+                                 {'title': '旅遊交通', 'payload': 'traffic'},
+                                 {'title': '休閒娛樂', 'payload': 'entertain'},
+                                 {'title': '購物', 'payload': 'shopping'},
+                                 {'title': '電子支付功能', 'payload': 'easycard'},
+                                 {'title': '宗教', 'payload': 'religion'}])
+
+    elif message == 'A':     
         buttons = [{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
                    {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
                    {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]
