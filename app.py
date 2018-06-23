@@ -45,8 +45,10 @@ def received_postback(event):
         page.send(sender_id, '晚安我的朋友')
     elif payload == 'DEVELOPED_DEFINED_PAYLOAD':
         page.send(sender_id, '噫！好了！我中了！')
-    elif payload == 'MENU_PAYLOAD/1':
+    elif payload == 'MENU1':
         page.send(sender_id, '母湯喔')
+    elif payload == 'MENU2':
+        page.send(sender_id, '湯喔')
 
 ####################################
 ##### 開始菜單(未完成)
@@ -56,8 +58,8 @@ def start_callback(payload, event):
     print("Let's start!")
 
 page.show_persistent_menu([Template.ButtonWeb("Open Web URL", "https://www.oculus.com/en-us/rift/"),
-                           Template.ButtonPostBack('MENU1', 'ABC'),
-                           Template.ButtonPostBack('MENU2', 'DEF')])
+                           Template.ButtonPostBack('MENU1', 'MENU1'),
+                           Template.ButtonPostBack('MENU2', 'MENU2')])
 
 # @page.callback(['MENU_PAYLOAD/(.+)'])
 # def click_persistent_menu(payload, event):
