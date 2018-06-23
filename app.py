@@ -95,16 +95,6 @@ def received_postback(event):
                                  {'title': '不想', 'payload': 'N'}])
     else:
         page.send(sender_id, cal2(payload))
-    # elif payload == 'card1':
-    #     page.send(sender_id, cal2(card1))
-    # elif payload == 'card2':
-    #     page.send(sender_id, cal2(card2))
-    # elif payload == 'card3':
-    #     page.send(sender_id, cal2(card3))
-    # elif payload == 'card4':
-    #     page.send(sender_id, cal2(card4))
-    # elif payload == 'card5':
-    #     page.send(sender_id, cal2(card5))
 
 ####################################
 ##### 開始訊息與菜單
