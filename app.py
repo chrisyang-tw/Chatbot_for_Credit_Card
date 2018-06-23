@@ -124,7 +124,7 @@ def message_handler(event):
                     '購物': [{'title': '通路聯名', 'payload': 'chain'},
                             {'title': '網路購物', 'payload': 'shopee'}]
                     }
-    sub_features_all = ['國內現金回饋', '國外現金回饋', '里程累積', '旅遊優惠', '國外刷卡優惠', '高鐵', '加油停車', 'eTag', '美食', '電影', '通路聯名', '網路購物', '電子支付功能(悠遊卡、一卡通、iCash)', '宗教']
+    sub_features_all = ['國內現金回饋', '國外現金回饋', '里程累積', '旅遊優惠', '國外刷卡優惠', '高鐵', '加油停車', 'eTag', '美食', '電影', '通路聯名', '網路購物', '電子支付功能(悠遊卡、一卡通)', '宗教']
 
     if message == '想！':
         page.send(sender_id, '那讓我們開始吧！首先先問問你希望想擁有的信用卡特色？',
@@ -132,7 +132,7 @@ def message_handler(event):
                                  {'title': '旅遊交通', 'payload': 'traffic'},
                                  {'title': '休閒娛樂', 'payload': 'entertain'},
                                  {'title': '購物', 'payload': 'shopping'},
-                                 {'title': '電子支付功能(悠遊卡、一卡通、iCash)', 'payload': 'easycard'},
+                                 {'title': '電子支付功能(悠遊卡、一卡通)', 'payload': 'easycard'},
                                  {'title': '宗教', 'payload': 'religion'}])
     elif message == '不想':
         page.send(sender_id, '相信我，卡奴也是可以過得很快樂的，給你最後一次機會，你想不想成為卡奴？',
@@ -210,7 +210,8 @@ def message_handler(event):
 
     ##### 鸚鵡
     else:
-        page.send(sender_id, "你傳的訊息是 '%s'" % message)
+        random_responses = ['母湯偶北共', '講中文啦', '窩聽不懂中文', '樓下rrro？', '還我校長不然我不跟你聊天喔', '你的訊息跑到光頭葛格的紅色內褲裡了啦']
+        page.send(sender_id, random.choices(random_responses))
 
 ####################################
 @page.after_send
