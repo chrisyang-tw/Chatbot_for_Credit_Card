@@ -13,7 +13,7 @@ def cal1(Type):
     webpage = urllib.request.urlopen('https://raw.githubusercontent.com/chrisyang-tw/PBC_Final/master/data.csv')
     next(webpage)
     rows = csv.reader(codecs.iterdecode(webpage, 'utf-8'))
-    
+
     answer = []
     for row in rows:
         #print (row[5])
@@ -25,10 +25,10 @@ def cal1(Type):
         number.append(i)
     random.shuffle(number)
     #print(number)
-    for  i in range(0,len(answer)):
+    for i in range(0,len(answer)):
         answer1.append(answer[number[i]])
     #print(answer1)
-    answer1 = sorted(answer1, key=lambda y: answer[14], reverse=True)
+    answer1 = sorted(answer1, key=lambda y: y[14], reverse=True)
     card = [[], [], [], []]
     if len(answer1) >= 5:
         for i in range(0,5):
