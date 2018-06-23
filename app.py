@@ -171,7 +171,7 @@ def message_handler(event):
     #     ]))
 
     elif message in sub_features_all:
-        answer = cal1('加油停車')
+        answer = cal1(message)
         page.send(sender_id, Template.Generic([
                 Template.GenericElement(answer[0][0],
                                 subtitle=answer[0][0],
