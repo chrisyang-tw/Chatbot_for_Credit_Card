@@ -43,7 +43,7 @@ def received_postback(event):
         page.send(sender_id, '早安我的朋友')
     elif payload == 'DEF':
         page.send(sender_id, '晚安我的朋友')
-    elif payload == 'MENU_PAYLOAD/1':
+    elif payload == 'DEVELOPED_DEFINED_PAYLOAD':
         page.send(sender_id, '噫！好了！我中了！')
 
 ####################################
