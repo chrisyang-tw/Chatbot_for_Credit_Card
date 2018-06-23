@@ -122,6 +122,7 @@ def message_handler(event):
                     '購物': [{'title': '通路聯名', 'payload': 'chain'},
                             {'title': '網路購物', 'payload': 'shopee'}]
                     }
+    sub_features_all = ['國內現金回饋', '國外現金回饋', '里程累積', '旅遊優惠', '國外刷卡優惠', '高鐵', '加油停車', 'eTag', '美食', '電影', '通路聯名', '網路購物', '電子支付功能(悠遊卡、一卡通、iCash)', '宗教']
 
     if message == '想！':
         page.send(sender_id, '那讓我們開始吧！首先先問問你希望想擁有的信用卡特色？',
@@ -169,8 +170,8 @@ def message_handler(event):
     #                                     {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
     #     ]))
 
-    elif message == 'D':
-        answer = cal1('加油停車')
+    elif message in sub_features_all:
+        answer = cal1(message)
         page.send(sender_id, Template.Generic([
                 Template.GenericElement(answer[0][0],
                                 subtitle=answer[0][0],
