@@ -38,7 +38,7 @@ def received_postback(event):
     sender_id = event.sender_id
     payload = event.postback_payload
 
-    if payload == 'START_PAYLOAD':
+    if payload == 'START':
         page.send(sender_id, '各位潮潮的菁英們，實習都已經賺了那麼多錢，是不是覺得沒地方花呢？想不想Bang成一個快樂的卡奴呢？',
                   quick_replies=[{'title': '想！', 'payload': 'Y'},
                                  {'title': '不想', 'payload': 'N'}])
@@ -53,10 +53,10 @@ def received_postback(event):
 ##### 開始訊息與菜單
 page.greeting('想變卡奴找我們準沒錯！')
 
-page.show_starting_button('START_PAYLOAD')
+page.show_starting_button('START')
 
 page.show_persistent_menu([Template.ButtonWeb("Open Web URL", "https://www.oculus.com/en-us/rift/"),
-                           Template.ButtonPostBack('開始使用', 'START_PAYLOAD'),
+                           Template.ButtonPostBack('開始使用', 'START'),
                            Template.ButtonPostBack('Undefined', 'MENU2')])
 
 ####################################
@@ -82,7 +82,7 @@ def message_handler(event):
                             {'title': '網路購物', 'payload': 'shopee'}]
                     }
 
-    if message == '想':
+    if message == '想！':
         page.send(sender_id, '那讓我們開始吧！首先先問問你希望想擁有的信用卡特色？',
                   quick_replies=[{'title': '高額現金回饋', 'payload': 'cash'},
                                  {'title': '旅遊交通', 'payload': 'traffic'},
