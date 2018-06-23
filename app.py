@@ -82,7 +82,7 @@ def message_handler(event):
                             {'title': '網路購物', 'payload': 'shopee'}]
                     }
 
-    if message == '想':
+    if message == '想！':
         page.send(sender_id, '那讓我們開始吧！首先先問問你希望想擁有的信用卡特色？',
                   quick_replies=[{'title': '高額現金回饋', 'payload': 'cash'},
                                  {'title': '旅遊交通', 'payload': 'traffic'},
