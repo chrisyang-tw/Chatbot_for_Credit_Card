@@ -9,7 +9,7 @@ ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 page = Page(ACCESS_TOKEN)
 
-#We will receive messages that Facebook sends our bot at this endpoint 
+## We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/", methods=['GET'])
 def hello():
     if request.args.get("hub.verify_token") == VERIFY_TOKEN:
@@ -26,6 +26,8 @@ def webhook():
 
 page.greeting("Welcome!")
 
+####################################
+##### 接收按鈕傳回的訊息
 @page.handle_postback
 def received_postback(event):
     sender_id = event.sender_id
@@ -41,8 +43,11 @@ def received_postback(event):
         page.send(sender_id, '早安我的朋友')
     elif payload == 'DEF':
         page.send(sender_id, '晚安我的朋友')
+    elif payload == 'MENU_PAYLOAD/1':
+        page.send(sender_id, '噫！好了！我中了！')
 
-#####
+####################################
+##### 開始菜單(未完成)
 page.show_starting_button("START_PAYLOAD")
 @page.callback(['START_PAYLOAD'])
 def start_callback(payload, event):
@@ -50,12 +55,13 @@ def start_callback(payload, event):
 
 page.show_persistent_menu([Template.ButtonPostBack('MENU1', 'MENU_PAYLOAD/1'),
                            Template.ButtonPostBack('MENU2', 'MENU_PAYLOAD/2')])
-@page.callback(['MENU_PAYLOAD/(.+)'])
-def click_persistent_menu(payload, event):
-    click_menu = payload.split('/')[1]
-    print("you clicked %s menu" % click_menu)
+# @page.callback(['MENU_PAYLOAD/(.+)'])
+# def click_persistent_menu(payload, event):
+#     click_menu = payload.split('/')[1]
+#     print("you clicked %s menu" % click_menu)
 
-
+####################################
+##### 
 @page.handle_message
 def message_handler(event):
     """:type event: fbmq.Event"""
@@ -110,10 +116,7 @@ def message_handler(event):
     else:
         page.send(sender_id, "你傳的訊息是 '%s'" % message)
 
-# @page.callback(['DEVELOPED_DEFINED_PAYLOAD'])
-# def callback_clicked_button(payload, event):
-    
-
+####################################
 @page.after_send
 def after_send(payload, response):
     """:type payload: fbmq.Payload"""
