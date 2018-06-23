@@ -11,3 +11,8 @@ sub_features = {'高額現金回饋': [{'title': '國內現金回饋', 'payload'
                 '購物': [{'title': '通路聯名', 'payload': 'chain'},
                         {'title': '網路購物', 'payload': 'shopee'}]
                 }
+
+message = '高額現金回饋'
+
+if message in sub_features:
+    print(sub_features[message])
