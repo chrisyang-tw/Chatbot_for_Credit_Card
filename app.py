@@ -9,11 +9,12 @@ import urllib.request
 import codecs
 
 ##### 爬資料
-def cal1(Type):
-    webpage = urllib.request.urlopen('https://raw.githubusercontent.com/chrisyang-tw/PBC_Final/master/data.csv')
-    next(webpage)
-    rows = csv.reader(codecs.iterdecode(webpage, 'utf-8'))
+webpage = urllib.request.urlopen('https://raw.githubusercontent.com/chrisyang-tw/PBC_Final/master/data.csv')
+next(webpage)
+rows = csv.reader(codecs.iterdecode(webpage, 'utf-8'))
 
+####################################
+def cal1(Type):
     answer = []
     for row in rows:
         #print (row[5])
@@ -49,6 +50,15 @@ def cal1(Type):
             card[3].append(answer1[i][16])
 
     return card
+
+def cal2(Type):
+    for row in rows:
+        if Type == str(row[1]) + str(row[2]):
+            ans = ("信用卡名:"+row[1]+row[2]+"\n"+"\n"+"國內現金回饋："+row[3]+"\n"+"\n"+"國外現金回饋："+row[4]+"\n"+"\n"+"優惠內容："+row[6]
+            +"\n"+"\n"+"優惠限制："+row[7]+"\n"+"\n"+"首刷禮："+row[8]+"\n"+"\n"+"首刷活動："+row[9]+"\n"+"\n"+"手續費："+row[10]+"\n"+"\n"+"年費："+row[11]+"\n"+"\n"
+            +"年收入限制："+row[12]+"\n"+"\n"+"年齡限制："+row[13]+"\n"+"\n")
+        return ans
+
 ####################################
 ##### 設置 webhook
 app = Flask(__name__)
@@ -83,6 +93,17 @@ def received_postback(event):
         page.send(sender_id, '各位潮潮的菁英們，實習都已經賺了那麼多錢，是不是覺得沒地方花呢？想不想Bang成一個快樂的卡奴呢？',
                   quick_replies=[{'title': '想！', 'payload': 'Y'},
                                  {'title': '不想', 'payload': 'N'}])
+    
+    elif payload == card1:
+        page.send(sender_id, cal2(card1))
+    elif payload == card2:
+        page.send(sender_id, cal2(card2))
+    elif payload == card3:
+        page.send(sender_id, cal2(card3))
+    elif payload == card4:
+        page.send(sender_id, cal2(card4))
+    elif payload == card5:
+        page.send(sender_id, cal2(card5))
     # if payload == 'ABC':
     #     page.send(sender_id, '早安我的朋友')
     # elif payload == 'DEF':
@@ -139,72 +160,46 @@ def message_handler(event):
     ## 第二次判斷
     elif message in sub_features:
         page.send(sender_id, '再選擇一個子項目吧', quick_replies=sub_features[message])
-    # if message == 'A':     
-    #     buttons = [{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-    #                {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
-    #                {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]
-    #     page.send(sender_id, Template.Buttons("hello", buttons))
 
-    # ##### 圖片
-    # elif message == 'B':
-    #     page.send(sender_id, Attachment.Image('http://i.imgur.com/hKORBJK.jpg'))
-
-    # ##### Generic Template
-    # elif message == 'D':
-    #     page.send(sender_id, Template.Generic([
-    #             Template.GenericElement("rift",
-    #                             subtitle="Next-generation virtual reality",
-    #                             item_url="https://www.oculus.com/en-us/rift/",
-    #                             # image_url=CONFIG['SERVER_URL'] + "/assets/rift.png",
-    #                             image_url='http://i.imgur.com/hKORBJK.jpg',
-    #                             buttons=[{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-    #                                     {'type': 'postback', 'title': 'BANK A', 'value': 'ABC'},
-    #                                     {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]),
-    #             Template.GenericElement("touch",
-    #                             subtitle="Your Hands, Now in VR",
-    #                             item_url="https://www.oculus.com/en-us/touch/",
-    #                             image_url='http://i.imgur.com/hKORBJK.jpg',
-    #                             buttons=[
-    #                                     {'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-    #                                     {'type': 'postback', 'title': 'BANK B', 'value': 'DEF'},
-    #                                     {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
-    #     ]))
-
+    ## 輸出
     elif message in sub_features_all:
         answer = cal1(message)
+        global card1, card2, card3, card4, card5
+        card1, card2, card3, card4, card5 = answer[0][0], answer[0][1], answer[0][2], answer[0][3], answer[0][4], answer[0][5] 
         if len(answer[0]) == 5:
             page.send(sender_id, Template.Generic([
                     Template.GenericElement(answer[0][0],
                                     subtitle=answer[0][0],
                                     item_url=answer[3][0],
                                     image_url=answer[2][0],
-                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': 'card1'},
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card1},
                                             {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][0]}]),
                     Template.GenericElement(answer[0][1],
                                     subtitle=answer[0][1],
                                     item_url=answer[3][1],
                                     image_url=answer[2][1],
-                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': 'card2'},
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card2},
                                             {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][1]}]),
                     Template.GenericElement(answer[0][2],
                                     subtitle=answer[0][2],
                                     item_url=answer[3][2],
                                     image_url=answer[2][2],
-                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': 'card3'},
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card3},
                                             {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][2]}]),
                     Template.GenericElement(answer[0][3],
                                     subtitle=answer[0][3],
                                     item_url=answer[3][3],
                                     image_url=answer[2][3],
-                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': 'card4'},
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card4},
                                             {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][3]}]),
                     Template.GenericElement(answer[0][4],
                                     subtitle=answer[0][4],
                                     item_url=answer[3][4],
                                     image_url=answer[2][4],
-                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': 'card5'},
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card5},
                                             {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][4]}])
             ]))
+        ## eTag 是特例，只會有四個
         else:
             page.send(sender_id, Template.Generic([
                     Template.GenericElement(answer[0][0],
