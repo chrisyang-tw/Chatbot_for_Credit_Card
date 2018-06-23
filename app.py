@@ -36,32 +36,30 @@ def webhook():
 @page.handle_postback
 def received_postback(event):
     sender_id = event.sender_id
-    recipient_id = event.recipient_id
-    time_of_postback = event.timestamp
-
     payload = event.postback_payload
 
-    print("Received postback for user %s and page %s with payload '%s' at %s"
-          % (sender_id, recipient_id, payload, time_of_postback))
-
-    if payload == 'ABC':
-        page.send(sender_id, '早安我的朋友')
-    elif payload == 'DEF':
-        page.send(sender_id, '晚安我的朋友')
-    elif payload == 'DEVELOPED_DEFINED_PAYLOAD':
-        page.send(sender_id, '噫！好了！我中了！')
-    elif payload == 'MENU1':
-        page.send(sender_id, '母湯喔')
-    elif payload == 'MENU2':
-        page.send(sender_id, '湯喔')
-    elif payload == 'START_PAYLOAD':
-        page.send(sender_id, '在想些什麼？')
+    if payload == 'START_PAYLOAD':
+        page.send(sender_id, '各位潮潮的菁英們，實習都已經賺了那麼多錢，是不是覺得沒地方花呢？想不想成為一個卡奴呢？',
+                  quick_replies=[{'title':'想', 'payload':'Y'},
+                                 {'title':'不想', 'payload':'N'}])
+    # if payload == 'ABC':
+    #     page.send(sender_id, '早安我的朋友')
+    # elif payload == 'DEF':
+    #     page.send(sender_id, '晚安我的朋友')
+    # elif payload == 'DEVELOPED_DEFINED_PAYLOAD':
+    #     page.send(sender_id, '噫！好了！我中了！')
+    # elif payload == 'MENU1':
+    #     page.send(sender_id, '母湯喔')
+    # elif payload == 'MENU2':
+    #     page.send(sender_id, '湯喔')
+    # elif payload == 'START_PAYLOAD':
+    #     page.send(sender_id, '在想些什麼？')
 
 ####################################
 ##### 開始菜單(未完成)
-page.greeting("想變卡奴找我們準沒錯！")
+page.greeting('想變卡奴找我們準沒錯！')
 
-page.show_starting_button("START_PAYLOAD")
+page.show_starting_button('START_PAYLOAD')
 # @page.callback(['START_PAYLOAD'])
 # def start_callback(payload, event):
 #     print("Let's start!")
