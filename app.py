@@ -172,13 +172,7 @@ def message_handler(event):
                                 item_url=answer[3][3],
                                 image_url=answer[2][3],
                                 buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card4},
-                                        {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][3]}]),
-                    Template.GenericElement(answer[0][4],
-                                    subtitle=answer[0][4],
-                                    item_url=answer[3][4],
-                                    image_url=answer[2][4],
-                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card5},
-                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][4]}])
+                                        {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][3]}])
             ]))
 
     ##### 鸚鵡
