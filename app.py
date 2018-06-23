@@ -9,12 +9,11 @@ import urllib.request
 import codecs
 
 ##### 爬資料
-webpage = urllib.request.urlopen('https://raw.githubusercontent.com/chrisyang-tw/PBC_Final/master/data.csv')
-next(webpage)
-rows = csv.reader(codecs.iterdecode(webpage, 'utf-8'))
-
 ####################################
 def cal1(Type):
+    webpage = urllib.request.urlopen('https://raw.githubusercontent.com/chrisyang-tw/PBC_Final/master/data.csv')
+    next(webpage)
+    rows = csv.reader(codecs.iterdecode(webpage, 'utf-8'))
     answer = []
     for row in rows:
         #print (row[5])
@@ -52,6 +51,9 @@ def cal1(Type):
     return card
 
 def cal2(Type):
+    webpage = urllib.request.urlopen('https://raw.githubusercontent.com/chrisyang-tw/PBC_Final/master/data.csv')
+    next(webpage)
+    rows = csv.reader(codecs.iterdecode(webpage, 'utf-8'))
     for row in rows:
         if Type == str(row[1]) + str(row[2]):
             ans = ("信用卡名:"+row[1]+row[2]+"\n"+"\n"+"國內現金回饋："+row[3]+"\n"+"\n"+"國外現金回饋："+row[4]+"\n"+"\n"+"優惠內容："+row[6]
