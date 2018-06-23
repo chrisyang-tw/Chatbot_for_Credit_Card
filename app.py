@@ -37,7 +37,7 @@ def received_postback(event):
     print("Received postback for user %s and page %s with payload '%s' at %s"
           % (sender_id, recipient_id, payload, time_of_postback))
 
-    page.send(sender_id, "called")
+    page.send(sender_id, payload)
 
 #####
 page.show_starting_button("START_PAYLOAD")
@@ -109,7 +109,7 @@ def message_handler(event):
 
 # @page.callback(['DEVELOPED_DEFINED_PAYLOAD'])
 # def callback_clicked_button(payload, event):
-#     print(payload, event)
+    
 
 @page.after_send
 def after_send(payload, response):
