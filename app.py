@@ -61,6 +61,9 @@ def message_handler(event):
                                         {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
                                         {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
         ]))
+
+    elif message == 'trigger Postback':
+        page.send(sender_id, 'yeeeeeeeeeeee')
     else:
         page.send(sender_id, "你傳的訊息是 '%s'" % message)
 
