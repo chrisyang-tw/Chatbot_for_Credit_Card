@@ -79,10 +79,6 @@ def webhook():
     return "ok"
 
 ####################################
-
-
-
-####################################
 ##### 接收按鈕傳回的訊息
 @page.handle_postback
 def received_postback(event):
@@ -102,9 +98,9 @@ page.greeting('想變卡奴找我們準沒錯！')
 
 page.show_starting_button('START')
 
-page.show_persistent_menu([Template.ButtonWeb("Open Web URL", "https://www.oculus.com/en-us/rift/"),
-                           Template.ButtonPostBack('開始使用', 'START'),
-                           Template.ButtonPostBack('Undefined', 'MENU2')])
+page.show_persistent_menu([Template.ButtonPostBack('開始使用(重製)', 'START'),
+                           Template.ButtonWeb('前往此網頁已獲得更多資訊', 'https://money101.com.tw'),
+                           Template.ButtonWeb('讓你看看我們的資料庫！', 'https://github.com/chrisyang-tw/PBC_Final/blob/master/data.csv')])
 
 ####################################
 ##### 
@@ -136,7 +132,7 @@ def message_handler(event):
                                  {'title': '旅遊交通', 'payload': 'traffic'},
                                  {'title': '休閒娛樂', 'payload': 'entertain'},
                                  {'title': '購物', 'payload': 'shopping'},
-                                 {'title': '電子支付功能', 'payload': 'easycard'},
+                                 {'title': '電子支付功能(悠遊卡、一卡通、iCash)', 'payload': 'easycard'},
                                  {'title': '宗教', 'payload': 'religion'}])
     elif message == '不想':
         page.send(sender_id, '相信我，卡奴也是可以過得很快樂的，給你最後一次機會，你想不想成為卡奴？',
