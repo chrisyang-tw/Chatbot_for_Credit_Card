@@ -39,6 +39,7 @@ def received_postback(event):
 
     page.send(sender_id, "Postback called")
 
+#####
 page.show_starting_button("START_PAYLOAD")
 @page.callback(['START_PAYLOAD'])
 def start_callback(payload, event):
@@ -106,9 +107,9 @@ def message_handler(event):
     else:
         page.send(sender_id, "你傳的訊息是 '%s'" % message)
 
-@page.callback(['DEVELOPED_DEFINED_PAYLOAD'])
-def callback_clicked_button(payload, event):
-    print(payload, event)
+# @page.callback(['DEVELOPED_DEFINED_PAYLOAD'])
+# def callback_clicked_button(payload, event):
+#     print(payload, event)
 
 @page.after_send
 def after_send(payload, response):
