@@ -57,8 +57,6 @@ def cal2(Type):
             ans = ("信用卡名:"+row[1]+row[2]+"\n"+"\n"+"國內現金回饋："+row[3]+"\n"+"\n"+"國外現金回饋："+row[4]+"\n"+"\n"+"優惠內容："+row[6]
             +"\n"+"\n"+"優惠限制："+row[7]+"\n"+"\n"+"首刷禮："+row[8]+"\n"+"\n"+"首刷活動："+row[9]+"\n"+"\n"+"手續費："+row[10]+"\n"+"\n"+"年費："+row[11]+"\n"+"\n"
             +"年收入限制："+row[12]+"\n"+"\n"+"年齡限制："+row[13]+"\n"+"\n")
-        else:
-            continue
     return ans
 
 ####################################
@@ -147,74 +145,72 @@ def message_handler(event):
     ## 輸出
     elif message in sub_features_all:
         answer = cal1(message)
-        # if len(answer[0]) == 5:
-        #     card1, card2, card3, card4, card5 = answer[0][0], answer[0][1], answer[0][2], answer[0][3], answer[0][4]
-        #     page.send(sender_id, Template.Generic([
-        #             Template.GenericElement(answer[0][0],
-        #                             subtitle=answer[0][0],
-        #                             item_url=answer[3][0],
-        #                             image_url=answer[2][0],
-        #                             buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card1},
-        #                                     {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][0]}]),
-        #             Template.GenericElement(answer[0][1],
-        #                             subtitle=answer[0][1],
-        #                             item_url=answer[3][1],
-        #                             image_url=answer[2][1],
-        #                             buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card2},
-        #                                     {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][1]}]),
-        #             Template.GenericElement(answer[0][2],
-        #                             subtitle=answer[0][2],
-        #                             item_url=answer[3][2],
-        #                             image_url=answer[2][2],
-        #                             buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card3},
-        #                                     {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][2]}]),
-        #             Template.GenericElement(answer[0][3],
-        #                             subtitle=answer[0][3],
-        #                             item_url=answer[3][3],
-        #                             image_url=answer[2][3],
-        #                             buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card4},
-        #                                     {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][3]}]),
-        #             Template.GenericElement(answer[0][4],
-        #                             subtitle=answer[0][4],
-        #                             item_url=answer[3][4],
-        #                             image_url=answer[2][4],
-        #                             buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card5},
-        #                                     {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][4]}])
-        #     ]))
-        # ## eTag 是特例，只會有四個
-        # else:
-        page.send(sender_id, answer)
-        page.send(sender_id, Template.Generic([
-                Template.GenericElement(answer[0][0],
-                                subtitle=answer[0][0],
-                                item_url=answer[3][0],
-                                image_url=answer[2][0],
-                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': answer[0][0]},
-                                        {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][0]}]),
-                Template.GenericElement(answer[0][1],
-                                subtitle=answer[0][1],
-                                item_url=answer[3][1],
-                                image_url=answer[2][1],
-                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': answer[0][1]},
-                                        {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][1]}]),
-                Template.GenericElement(answer[0][2],
-                                subtitle=answer[0][2],
-                                item_url=answer[3][2],
-                                image_url=answer[2][2],
-                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': answer[0][2]},
-                                        {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][2]}]),
-                Template.GenericElement(answer[0][3],
-                                subtitle=answer[0][3],
-                                item_url=answer[3][3],
-                                image_url=answer[2][3],
-                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': answer[0][3]},
-                                        {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][3]}])
+        card1, card2, card3, card4, card5 = answer[0][0], answer[0][1], answer[0][2], answer[0][3], answer[0][4]
+        if len(answer[0]) == 5:
+            page.send(sender_id, Template.Generic([
+                    Template.GenericElement(answer[0][0],
+                                    subtitle=answer[0][0],
+                                    item_url=answer[3][0],
+                                    image_url=answer[2][0],
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card1},
+                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][0]}]),
+                    Template.GenericElement(answer[0][1],
+                                    subtitle=answer[0][1],
+                                    item_url=answer[3][1],
+                                    image_url=answer[2][1],
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card2},
+                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][1]}]),
+                    Template.GenericElement(answer[0][2],
+                                    subtitle=answer[0][2],
+                                    item_url=answer[3][2],
+                                    image_url=answer[2][2],
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card3},
+                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][2]}]),
+                    Template.GenericElement(answer[0][3],
+                                    subtitle=answer[0][3],
+                                    item_url=answer[3][3],
+                                    image_url=answer[2][3],
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card4},
+                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][3]}]),
+                    Template.GenericElement(answer[0][4],
+                                    subtitle=answer[0][4],
+                                    item_url=answer[3][4],
+                                    image_url=answer[2][4],
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card5},
+                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][4]}])
+            ]))
+        ## eTag 是特例，只會有四個
+        else:
+            page.send(sender_id, Template.Generic([
+                    Template.GenericElement(answer[0][0],
+                                    subtitle=answer[0][0],
+                                    item_url=answer[3][0],
+                                    image_url=answer[2][0],
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card1},
+                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][0]}]),
+                    Template.GenericElement(answer[0][1],
+                                    subtitle=answer[0][1],
+                                    item_url=answer[3][1],
+                                    image_url=answer[2][1],
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card2},
+                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][1]}]),
+                    Template.GenericElement(answer[0][2],
+                                    subtitle=answer[0][2],
+                                    item_url=answer[3][2],
+                                    image_url=answer[2][2],
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card3},
+                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][2]}]),
+                    Template.GenericElement(answer[0][3],
+                                    subtitle=answer[0][3],
+                                    item_url=answer[3][3],
+                                    image_url=answer[2][3],
+                                    buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card4},
+                                            {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][3]}])
             ]))
 
     ##### 鸚鵡
     else:
-        random_responses = ['母湯偶北共', '講中文啦', '窩聽不懂中文', '樓下rrro？', '還我校長不然我不跟你聊天喔', '你的訊息跑到光頭葛格的紅色內褲裡了啦']
-        page.send(sender_id, random.choices(random_responses))
+        page.send(sender_id, "你傳的訊息是 '%s'" % message)
 
 ####################################
 @page.after_send
