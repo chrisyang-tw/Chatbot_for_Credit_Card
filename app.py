@@ -107,12 +107,6 @@ def message_handler(event):
     # elif message == 'B':
     #     page.send(sender_id, Attachment.Image('http://i.imgur.com/hKORBJK.jpg'))
 
-    # ##### 快速回覆
-    # elif message == 'C':
-    #     quick_replies = [{'title': 'Action', 'payload': 'PICK_ACTION'},
-    #                      {'title': 'Comedy', 'payload': 'PICK_COMEDY'}]
-    #     page.send(sender_id, "What's your favorite movie genre?", quick_replies=quick_replies, metadata="DEVELOPER_DEFINED_METADATA")
-
     # ##### Generic Template
     # elif message == 'D':
     #     page.send(sender_id, Template.Generic([
@@ -133,7 +127,8 @@ def message_handler(event):
     #                                     {'type': 'postback', 'title': 'BANK B', 'value': 'DEF'},
     #                                     {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
     #     ]))
-        
+
+
     ##### 鸚鵡
     else:
         page.send(sender_id, "你傳的訊息是 '%s'" % message)
