@@ -101,7 +101,7 @@ page.greeting('想變卡奴找我們準沒錯！')
 page.show_starting_button('START')
 
 page.show_persistent_menu([Template.ButtonPostBack('開始使用(重製)', 'START'),
-                           Template.ButtonWeb('前往此網頁已獲得更多資訊', 'https://money101.com.tw'),
+                           Template.ButtonWeb('前往此網頁以獲得更多資訊', 'https://money101.com.tw'),
                            Template.ButtonWeb('讓你看看我們的資料庫！', 'https://github.com/chrisyang-tw/PBC_Final/blob/master/data.csv')])
 
 ####################################
@@ -175,9 +175,10 @@ def message_handler(event):
                                         {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][3]}])
             ]))
 
-    ##### 鸚鵡
+    ##### 亂回
     else:
-        page.send(sender_id, "賣偶北共，你傳的訊息是 '%s'" % message)
+        rand = ['賣偶北共！', '不要亂玩聊天機器人。', '你的訊息被藏在光頭葛格的紅色內褲裡，我找不到。']
+        page.send(sender_id, random.choice(rand))
 
 ####################################
 @page.after_send
