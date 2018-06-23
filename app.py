@@ -12,7 +12,6 @@ page = Page(ACCESS_TOKEN)
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/", methods=['GET'])
 def hello():
-    # Before allowing people to message your bot, Facebook has implemented a verify token that confirms all requests that your bot receives came from Facebook.""" 
     if request.args.get("hub.verify_token") == VERIFY_TOKEN:
         return request.args.get("hub.challenge")
     else:
@@ -30,8 +29,11 @@ def message_handler(event):
     """:type event: fbmq.Event"""
     sender_id = event.sender_id
     message = event.message_text
-    if message == 'A':
-        page.send(sender_id, "thank you! your message is '%s'" % message)
+    if message == 'A':     
+        buttons = [{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
+                {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
+                {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]
+        page.send(recipient_id, Template.Buttons("hello", buttons))
     elif message == 'B':
         page.send(sender_id, Attachment.Image('http://i.imgur.com/hKORBJK.jpg'))
     elif message == 'C':
@@ -40,6 +42,8 @@ def message_handler(event):
             QuickReply(title="Comedy", payload="PICK_COMEDY")
         ]
         page.send(sender_id, "What's your favorite movie genre?", quick_replies=quick_replies, metadata="DEVELOPER_DEFINED_METADATA")
+    else:
+        page.send(sender_id, "你傳的訊息是 '%s'" % message)
 
 @page.after_send
 def after_send(payload, response):
