@@ -68,21 +68,6 @@ def message_handler(event):
     message = event.message_text
 
     ## 第一次判斷
-
-    
-    if message == '想':
-        page.send(sender_id, '那讓我們開始吧！首先先問問你希望想擁有的信用卡特色？',
-                  quick_replies=[{'title': '高額現金回饋', 'payload': 'cash'},
-                                 {'title': '旅遊交通', 'payload': 'traffic'},
-                                 {'title': '休閒娛樂', 'payload': 'entertain'},
-                                 {'title': '購物', 'payload': 'shopping'},
-                                 {'title': '電子支付功能', 'payload': 'easycard'},
-                                 {'title': '宗教', 'payload': 'religion'}])
-    elif message == '不想':
-        page.send(sender_id, '相信我，卡奴也是可以過得很快樂的，給你最後一次機會，你想不想成為卡奴？',
-                  quick_replies=[{'title':'想！', 'payload':'Y'}])
-
-    ## 第二次判斷
     sub_features = {'高額現金回饋': [{'title': '國內現金回饋', 'payload': 'in'},
                                     {'title': '國外現金回饋', 'payload': 'out'}],
                     '旅遊交通': [{'title': '里程累積', 'payload': 'meter'},
@@ -96,9 +81,22 @@ def message_handler(event):
                     '購物': [{'title': '通路聯名', 'payload': 'chain'},
                             {'title': '網路購物', 'payload': 'shopee'}]
                     }
-    
-    elif message == '高額現金回饋':
-        page.send(sender_id, '再選擇一個子項目吧', quick_replies=sub_features['高額現金回饋'])
+
+    if message == '想':
+        page.send(sender_id, '那讓我們開始吧！首先先問問你希望想擁有的信用卡特色？',
+                  quick_replies=[{'title': '高額現金回饋', 'payload': 'cash'},
+                                 {'title': '旅遊交通', 'payload': 'traffic'},
+                                 {'title': '休閒娛樂', 'payload': 'entertain'},
+                                 {'title': '購物', 'payload': 'shopping'},
+                                 {'title': '電子支付功能', 'payload': 'easycard'},
+                                 {'title': '宗教', 'payload': 'religion'}])
+    elif message == '不想':
+        page.send(sender_id, '相信我，卡奴也是可以過得很快樂的，給你最後一次機會，你想不想成為卡奴？',
+                  quick_replies=[{'title':'想！', 'payload':'Y'}])
+
+    ## 第二次判斷
+    elif message in sub_features:
+        page.send(sender_id, '再選擇一個子項目吧', quick_replies=sub_features[message])
     # if message == 'A':     
     #     buttons = [{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
     #                {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
