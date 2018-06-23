@@ -36,10 +36,6 @@ def webhook():
 # def callback_clicked_button(payload, event):
 #     print(payload, event)
 
-@page.callback(['PICK_ACTION', 'PICK_COMEDY'])
-def callback_picked_genre(payload, event):
-    print(payload, event)
-
 @page.handle_message
 def message_handler(event):
     """:type event: fbmq.Event"""
