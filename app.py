@@ -24,17 +24,14 @@ def webhook():
 
 ####################################
 
-# page.show_persistent_menu([Template.ButtonPostBack('MENU1', 'MENU_PAYLOAD/1'),
-#                            Template.ButtonPostBack('MENU2', 'MENU_PAYLOAD/2')])
+page.show_persistent_menu([Template.ButtonPostBack('MENU1', 'MENU_PAYLOAD/1'),
+                           Template.ButtonPostBack('MENU2', 'MENU_PAYLOAD/2')])
 
-# @page.callback(['MENU_PAYLOAD/(.+)'])
-# def click_persistent_menu(payload, event):
-#     click_menu = payload.split('/')[1]
-#     print("you clicked %s menu" % click_menu)
+@page.callback(['MENU_PAYLOAD/(.+)'])
+def click_persistent_menu(payload, event):
+    click_menu = payload.split('/')[1]
+    print("you clicked %s menu" % click_menu)
 
-# @page.callback(['DEVELOPED_DEFINED_PAYLOAD'])
-# def callback_clicked_button(payload, event):
-#     print(payload, event)
 
 @page.handle_message
 def message_handler(event):
