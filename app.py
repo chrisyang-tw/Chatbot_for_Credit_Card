@@ -42,6 +42,25 @@ def message_handler(event):
             QuickReply(title="Comedy", payload="PICK_COMEDY")
         ]
         page.send(sender_id, "What's your favorite movie genre?", quick_replies=quick_replies, metadata="DEVELOPER_DEFINED_METADATA")
+    elif message == 'D':
+        page.send(sender_id, Template.Generic([
+        Template.GenericElement("rift",
+                                subtitle="Next-generation virtual reality",
+                                item_url="https://www.oculus.com/en-us/rift/",
+                                # image_url=CONFIG['SERVER_URL'] + "/assets/rift.png",
+                                image_url='http://i.imgur.com/hKORBJK.jpg'
+                                buttons=[{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
+                                        {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
+                                        {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]),
+        Template.GenericElement("touch",
+                                subtitle="Your Hands, Now in VR",
+                                item_url="https://www.oculus.com/en-us/touch/",
+                                image_url='http://i.imgur.com/hKORBJK.jpg',
+                                buttons=[
+                                        {'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
+                                        {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
+                                        {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
+        ]))
     else:
         page.send(sender_id, "你傳的訊息是 '%s'" % message)
 
