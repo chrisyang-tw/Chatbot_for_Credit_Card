@@ -24,6 +24,14 @@ def webhook():
 
 ####################################
 
+# page.show_persistent_menu([Template.ButtonPostBack('MENU1', 'MENU_PAYLOAD/1'),
+#                            Template.ButtonPostBack('MENU2', 'MENU_PAYLOAD/2')])
+
+# @page.callback(['MENU_PAYLOAD/(.+)'])
+# def click_persistent_menu(payload, event):
+#     click_menu = payload.split('/')[1]
+#     print("you clicked %s menu" % click_menu)
+
 @page.handle_message
 def message_handler(event):
     """:type event: fbmq.Event"""
@@ -31,7 +39,7 @@ def message_handler(event):
     message = event.message_text
     if message == 'A':     
         buttons = [{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-                {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
+                {'type': 'postback', 'title': 'trigger Postback', 'value': 'B'},
                 {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]
         page.send(sender_id, Template.Buttons("hello", buttons))
     elif message == 'B':
@@ -50,7 +58,7 @@ def message_handler(event):
                                 # image_url=CONFIG['SERVER_URL'] + "/assets/rift.png",
                                 image_url='http://i.imgur.com/hKORBJK.jpg',
                                 buttons=[{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-                                        {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
+                                        {'type': 'postback', 'title': 'trigger Postback', 'value': 'AA'},
                                         {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]),
                 Template.GenericElement("touch",
                                 subtitle="Your Hands, Now in VR",
@@ -58,12 +66,14 @@ def message_handler(event):
                                 image_url='http://i.imgur.com/hKORBJK.jpg',
                                 buttons=[
                                         {'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-                                        {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
+                                        {'type': 'postback', 'title': 'trigger Postback', 'value': 'BB'},
                                         {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
         ]))
 
-    elif message == 'trigger Postback':
+    elif message == 'AA':
         page.send(sender_id, 'yeeeeeeeeeeee')
+    elif message == 'BB':
+        page.send(sender_id, 'WTF')
     else:
         page.send(sender_id, "你傳的訊息是 '%s'" % message)
 
