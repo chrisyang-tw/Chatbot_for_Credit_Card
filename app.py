@@ -183,31 +183,31 @@ def message_handler(event):
         #     ]))
         # ## eTag 是特例，只會有四個
         # else:
-        card1, card2, card3, card4 = answer[0][0], answer[0][1], answer[0][2], answer[0][3]
+        page.send(sender_id, answer)
         page.send(sender_id, Template.Generic([
                 Template.GenericElement(answer[0][0],
                                 subtitle=answer[0][0],
                                 item_url=answer[3][0],
                                 image_url=answer[2][0],
-                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card1},
+                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': answer[0][0]},
                                         {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][0]}]),
                 Template.GenericElement(answer[0][1],
                                 subtitle=answer[0][1],
                                 item_url=answer[3][1],
                                 image_url=answer[2][1],
-                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card2},
+                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': answer[0][1]},
                                         {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][1]}]),
                 Template.GenericElement(answer[0][2],
                                 subtitle=answer[0][2],
                                 item_url=answer[3][2],
                                 image_url=answer[2][2],
-                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card3},
+                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': answer[0][2]},
                                         {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][2]}]),
                 Template.GenericElement(answer[0][3],
                                 subtitle=answer[0][3],
                                 item_url=answer[3][3],
                                 image_url=answer[2][3],
-                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': card4},
+                                buttons=[{'type': 'postback', 'title': '詳細資訊', 'value': answer[0][3]},
                                         {'type': 'web_url', 'title': '我要辦卡', 'value': answer[3][3]}])
             ]))
 
