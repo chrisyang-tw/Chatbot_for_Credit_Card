@@ -37,7 +37,10 @@ def received_postback(event):
     print("Received postback for user %s and page %s with payload '%s' at %s"
           % (sender_id, recipient_id, payload, time_of_postback))
 
-    page.send(sender_id, payload)
+    if payload == 'ABC':
+        page.send(sender_id, '早安我的朋友')
+    elif payload == 'DEF':
+        page.send(sender_id, '晚安我的朋友')
 
 #####
 page.show_starting_button("START_PAYLOAD")
@@ -85,7 +88,7 @@ def message_handler(event):
                                 # image_url=CONFIG['SERVER_URL'] + "/assets/rift.png",
                                 image_url='http://i.imgur.com/hKORBJK.jpg',
                                 buttons=[{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-                                        {'type': 'postback', 'title': 'BANK A', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
+                                        {'type': 'postback', 'title': 'BANK A', 'value': 'ABC'},
                                         {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]),
                 Template.GenericElement("touch",
                                 subtitle="Your Hands, Now in VR",
@@ -93,7 +96,7 @@ def message_handler(event):
                                 image_url='http://i.imgur.com/hKORBJK.jpg',
                                 buttons=[
                                         {'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
-                                        {'type': 'postback', 'title': 'BANK B', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
+                                        {'type': 'postback', 'title': 'BANK B', 'value': 'DEF'},
                                         {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
         ]))
     
