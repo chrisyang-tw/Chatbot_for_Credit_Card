@@ -26,10 +26,23 @@ def webhook():
 
 page.greeting("Welcome!")
 
+@page.handle_postback
+def received_postback(event):
+    sender_id = event.sender_id
+    recipient_id = event.recipient_id
+    time_of_postback = event.timestamp
+
+    payload = event.postback_payload
+
+    print("Received postback for user %s and page %s with payload '%s' at %s"
+          % (sender_id, recipient_id, payload, time_of_postback))
+
+    page.send(sender_id, "Postback called")
+
 page.show_starting_button("START_PAYLOAD")
 @page.callback(['START_PAYLOAD'])
 def start_callback(payload, event):
-  print("Let's start!")
+    print("Let's start!")
 
 page.show_persistent_menu([Template.ButtonPostBack('MENU1', 'MENU_PAYLOAD/1'),
                            Template.ButtonPostBack('MENU2', 'MENU_PAYLOAD/2')])
@@ -82,6 +95,7 @@ def message_handler(event):
                                         {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
                                         {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
         ]))
+    
 
     # elif message == 'AA':
     #     page.send(sender_id, 'yeeeeeeeeeeee')
@@ -91,6 +105,10 @@ def message_handler(event):
     ##### 鸚鵡
     else:
         page.send(sender_id, "你傳的訊息是 '%s'" % message)
+
+@page.callback(['DEVELOPED_DEFINED_PAYLOAD'])
+def callback_clicked_button(payload, event):
+    print(payload, event)
 
 @page.after_send
 def after_send(payload, response):
