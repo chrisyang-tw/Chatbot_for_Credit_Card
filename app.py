@@ -182,7 +182,7 @@ def message_handler(event):
             ]))
         ## eTag 是特例，只會有四個
         else:
-            card1, card2, card3, card4 = answer[0][0], answer[0][1], answer[0][2], answer[0][3]
+            # card1, card2, card3, card4 = answer[0][0], answer[0][1], answer[0][2], answer[0][3]
             page.send(sender_id, Template.Generic([
                     Template.GenericElement(answer[0][0],
                                     subtitle=answer[0][0],
