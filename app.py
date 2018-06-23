@@ -5,18 +5,15 @@ from flask import Flask, request
 from fbmq import Attachment, Template, QuickReply, Page
 import csv
 import random
-import urllib
+import urllib.request
+import codecs
 
 ##### 爬資料
 def cal1(Type):
-    webpage = urllib.urlopen('https://github.com/chrisyang-tw/PBC_Final/blob/master/data.csv')
+    webpage = urllib.request.urlopen('https://raw.githubusercontent.com/chrisyang-tw/PBC_Final/master/data.csv')
     next(webpage)
-    rows = csv.reader(webpage)
+    rows = csv.reader(codecs.iterdecode(webpage, 'utf-8'))
     
-    # data = "/Users/chiaa/Desktop/data.csv"
-    # csvfile = open(data, mode='r', encoding='utf-8')
-    # next(csvfile)
-    # rows = csv.reader(csvfile)
     answer = []
     for row in rows:
         #print (row[5])
@@ -41,7 +38,7 @@ def cal1(Type):
             +"年收入限制："+answer1[i][12]+"\n"+"\n"+"年齡限制："+answer1[i][13]+"\n"+"\n")
             card[2].append(answer1[i][15])
             card[3].append(answer1[i][16])
-            print('hohoho')
+            # print('hohoho')
     else:
         for i in range(0,len(answer1)):
             card[0].append(answer1[i][1]+answer1[i][2]+'\n')
@@ -52,7 +49,6 @@ def cal1(Type):
             card[3].append(answer1[i][16])
 
     return card
-
 ####################################
 ##### 設置 webhook
 app = Flask(__name__)
@@ -172,6 +168,7 @@ def message_handler(event):
     #                                     {'type': 'postback', 'title': 'BANK B', 'value': 'DEF'},
     #                                     {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}])
     #     ]))
+
     elif message == 'D':
         answer = cal1('加油停車')
         page.send(sender_id, Template.Generic([
