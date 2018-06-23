@@ -41,26 +41,39 @@ def received_postback(event):
 
     payload = event.postback_payload
 
-    print('Received postback for user %s and page %s with payload '%s' at %s'
+    print("Received postback for user %s and page %s with payload '%s' at %s"
           % (sender_id, recipient_id, payload, time_of_postback))
 
-    if payload == 'START_PAYLOAD':
-        page.send(sender_id, '各位潮潮的菁英們，實習都已經賺了那麼多錢，是不是覺得沒地方花呢？想不想成為一個卡奴呢？')
-                #   quick_replies=[{'title': '想！', 'payload': 'Y'},
-                #                  {'title': '不想！', 'payload': 'N'}])
-
+    if payload == 'ABC':
+        page.send(sender_id, '早安我的朋友')
+    elif payload == 'DEF':
+        page.send(sender_id, '晚安我的朋友')
+    elif payload == 'DEVELOPED_DEFINED_PAYLOAD':
+        page.send(sender_id, '噫！好了！我中了！')
+    elif payload == 'MENU1':
+        page.send(sender_id, '母湯喔')
+    elif payload == 'MENU2':
+        page.send(sender_id, '湯喔')
+    elif payload == 'START_PAYLOAD':
+        page.send(sender_id, '在想些什麼？')
 
 ####################################
-##### 開始菜單
-page.greeting('wnwc')
+##### 開始菜單(未完成)
+page.greeting("想變卡奴找我們準沒錯！")
 
-page.show_starting_button('START_PAYLOAD')
+page.show_starting_button("START_PAYLOAD")
+# @page.callback(['START_PAYLOAD'])
+# def start_callback(payload, event):
+#     print("Let's start!")
 
 page.show_persistent_menu([Template.ButtonWeb("Open Web URL", "https://www.oculus.com/en-us/rift/"),
                            Template.ButtonPostBack('MENU1', 'MENU1'),
                            Template.ButtonPostBack('MENU2', 'MENU2')])
 
-
+# @page.callback(['MENU_PAYLOAD/(.+)'])
+# def click_persistent_menu(payload, event):
+#     click_menu = payload.split('/')[1]
+#     print("you clicked %s menu" % click_menu)
 
 ####################################
 ##### 
@@ -71,16 +84,7 @@ def message_handler(event):
     message = event.message_text
 
     ##### 按鈕
-    if message == '想':
-        page.send(sender_id, '那讓我們開始吧！首先先問問你希望想擁有的信用卡特色？')
-                #   quick_replies=[{'title': '高額現金回饋', 'payload': 'cash'},
-                #                  {'title': '旅遊交通', 'payload': 'traffic'},
-                #                  {'title': '休閒娛樂', 'payload': 'entertain'},
-                #                  {'title': '購物', 'payload': 'shopping'},
-                #                  {'title': '電子支付功能', 'payload': 'easycard'},
-                #                  {'title': '宗教', 'payload': 'religion'}])
-
-    elif message == 'A':     
+    if message == 'A':     
         buttons = [{'type': 'web_url', 'title': 'Open Web URL', 'value': 'https://www.oculus.com/en-us/rift/'},
                    {'type': 'postback', 'title': 'trigger Postback', 'value': 'DEVELOPED_DEFINED_PAYLOAD'},
                    {'type': 'phone_number', 'title': 'Call Phone Number', 'value': '+886970119732'}]
