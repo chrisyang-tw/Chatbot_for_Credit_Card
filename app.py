@@ -92,7 +92,8 @@ def received_postback(event):
                   quick_replies=[{'title': '想！', 'payload': 'Y'},
                                  {'title': '不想', 'payload': 'N'}])
     else:
-        page.send(sender_id, cal2(payload))
+        page.send(sender_id, payload)
+        # page.send(sender_id, cal2(payload))
 
 ####################################
 ##### 開始訊息與菜單
