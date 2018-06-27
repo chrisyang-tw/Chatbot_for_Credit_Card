@@ -80,19 +80,6 @@ def webhook():
     page.handle_webhook(request.get_data(as_text=True))
     return "ok"
 
-####################################
-##### 接收按鈕傳回的訊息
-@page.handle_postback
-def received_postback(event):
-    sender_id = event.sender_id
-    payload = event.postback_payload
-
-    if payload == 'START':
-        page.send(sender_id, '各位潮潮的菁英們，實習都已經賺了那麼多錢，是不是覺得沒地方花呢？想不想Bang成一個快樂的卡奴呢？',
-                  quick_replies=[{'title': '想！', 'payload': 'Y'},
-                                 {'title': '不想', 'payload': 'N'}])
-    else:
-        page.send(sender_id, cal2(payload))
 
 ####################################
 ##### 開始訊息與菜單
@@ -179,6 +166,21 @@ def message_handler(event):
     else:
         rand = ['賣偶北共！', '不要亂玩聊天機器人。', '你的訊息被藏在光頭葛格的紅色內褲裡，我找不到。']
         page.send(sender_id, random.choice(rand))
+
+####################################
+##### 接收按鈕傳回的訊息
+@page.handle_postback
+def received_postback(event):
+    sender_id = event.sender_id
+    payload = event.postback_payload
+
+    if payload == 'START':
+        page.send(sender_id, '各位潮潮的菁英們，實習都已經賺了那麼多錢，是不是覺得沒地方花呢？想不想Bang成一個快樂的卡奴呢？',
+                  quick_replies=[{'title': '想！', 'payload': 'Y'},
+                                 {'title': '不想', 'payload': 'N'}])
+    else:
+        page.send(sender_id, cal2(payload))
+
 
 ####################################
 @page.after_send
