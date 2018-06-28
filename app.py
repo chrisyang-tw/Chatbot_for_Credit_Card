@@ -4,8 +4,6 @@ from fbmq import Attachment, Template, QuickReply, Page
 from search_card import recommend_card, card_detail
 import random
 
-# import json
-
 ########################################################
 ## 設置事件終點、通關密碼和認證密碼
 app = Flask(__name__)
