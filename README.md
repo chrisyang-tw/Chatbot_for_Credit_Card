@@ -40,6 +40,16 @@
 
 ## 系統設計
 
++ **資料讀取**
+
+為了讓程式更精簡、更好判讀，我們將為了要讀取資料創建的兩個函式和主要的程式分離。我們將資料讀取的函式存成獨立的 py 檔 *search_card.py* ，並在主程式中加入這一段程式碼：
+
+```python
+from search_card import recommend_card, card_detail
+```
+
+如此一來，在主要程式中只要呼叫這兩個函式就可以運作。
+
 + **設定驗證密碼**
 
 在寫程式之前，我們需要先創建一個粉絲專頁，在創建後會自動生成一個"Access token"，也就是粉絲專頁的身分證。在發送訊息或接收訊息時，這個代碼將會被用來驗證請求。
@@ -107,13 +117,3 @@ rand = ['response_1', 'response_2', 'response_3', ...]
 
 page.send(sender_id, random.choice(rand))
 ```
-
-+ **資料讀取**
-
-為了讓程式更精簡、更好判讀，我們將為了要讀取資料創建的兩個函式和主要的程式分離。我們將資料讀取的函式存成獨立的 py 檔 *search_card.py* ，並在主程式中加入這一段程式碼：
-
-```python
-from search_card import recommend_card, card_detail
-```
-
-如此一來，在主要程式中只要呼叫這兩個函式就可以運作。
