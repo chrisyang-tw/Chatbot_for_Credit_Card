@@ -87,10 +87,9 @@ def message_handler(event):
     sub_features_all = ['國內現金回饋', '國外現金回饋', '里程累積', '旅遊優惠', '國外刷卡優惠', '高鐵', '加油停車', 'eTag', '美食', '電影', '通路聯名', '網路購物', '電子支付功能(悠遊卡、一卡通)', '宗教']
 
     ## 當使用者一開始回答'想！'的回應
-    if message == '想！':
-        text = '那讓我們開始吧！在開始之前有個小叮嚀。如果你傳了訊息但我沒回你，可能是太多人在玩我，我負荷不了 >///<，這時候你可以按選單中的重新查詢我應該就會聽到你的呼喚了～'
-        text2 = '首先先問問你希望想擁有的信用卡特色？'
-        page.send(sender_id, text2, quick_replies=[{'title': '高額現金回饋', 'payload': 'cash'},
+    if message == '想！' or message == '想':
+        text = '首先先問問你希望想擁有的信用卡特色？'
+        page.send(sender_id, text, quick_replies=[{'title': '高額現金回饋', 'payload': 'cash'},
                                                   {'title': '旅遊交通', 'payload': 'traffic'},
                                                   {'title': '休閒娛樂', 'payload': 'entertain'},
                                                   {'title': '購物', 'payload': 'shopping'},
@@ -117,7 +116,7 @@ def message_handler(event):
             for i in img:
                 page.send(sender_id, Attachment.Image(i))
 
-        text = '以下是推薦給你的四張卡片！按詳細資訊查看卡片資訊，按我要辦卡連結至銀行官網。'
+        text = '以下是推薦給你的四張卡片！按詳細資訊查看卡片資訊，按我要辦卡連結至銀行官網。如果想要重新查詢，請打開選單，點選「重新查詢」即可！'
         answer = recommend_card(message)
         card1, card2, card3, card4 = answer[0][0], answer[0][1], answer[0][2], answer[0][3]
 
@@ -155,7 +154,7 @@ def message_handler(event):
                 '樓下rrro。噢不對，樓上rrro。', 
                 '你的訊息被藏在光頭葛格的紅色內褲裡，我找不到。', 
                 '[問卦] 有沒有邊緣到只能和聊天機器人聊天的八卦？',
-                '早安我的朋友，窩聽不懂中文。']
+                '早安我的朋友，窩看不懂尼在說什麼。']
 
         page.send(sender_id, random.choice(rand))
 
